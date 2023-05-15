@@ -1,0 +1,50 @@
+CREATE TABLE officesensor (
+        id SERIAL PRIMARY KEY NOT NULL,
+        datetime TIMESTAMP WITHOUT TIME ZONE,
+        lights BOOLEAN,
+        someone BOOLEAN
+)
+
+
+CREATE TABLE warehouse (
+        id SERIAL PRIMARY key NOT NULL,
+        datetime TIMESTAMP WITHOUT TIME ZONE NOT NULL,
+        power BOOLEAN NOT NULL,
+        temperature FLOAT NOT NULL
+)
+
+
+CREATE TABLE baysensor (
+        id SERIAL PRIMARY key NOT NULL,
+        datetime TIMESTAMP WITHOUT TIME ZONE NOT NULL,
+        occupied BOOLEAN NOT NULL,
+        bay_id NUMERIC NOT NULL
+)
+
+
+CREATE TABLE machinesensor (
+        id SERIAL PRIMARY key NOT NULL,
+        datetime TIMESTAMP WITHOUT TIME ZONE NOT NULL,
+        machine_id NUMERIC NOT NULL,
+        working BOOLEAN NOT NULL,
+        faulty BOOLEAN NOT NULL
+)
+
+
+CREATE TABLE transportbay (
+        id SERIAL PRIMARY KEY NOT NULL,
+        baysensor_id INTEGER NOT NULL,
+        general_datetime TIMESTAMP WITHOUT TIME ZONE NOT NULL,
+        general_power BOOLEAN NOT NULL,
+        FOREIGN KEY(baysensor_id) REFERENCES baysensor (id)
+)
+
+
+CREATE TABLE machinery (
+        id SERIAL PRIMARY KEY NOT NULL,
+        machinesensor_id INTEGER not NULL,
+        general_datetime TIMESTAMP WITHOUT TIME ZONE NOT NULL,
+        general_power BOOLEAN NOT null,
+        FOREIGN KEY(machinesensor_id) REFERENCES machinesensor (id)
+)
+
